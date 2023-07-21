@@ -27,6 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import com.example.kotlin_jetpack.state.MainViewModel
 import com.example.kotlin_jetpack.ui.theme.Kotlin_jetpackTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
                 CardWidget(name = "Avaz", prof = "Programmer")
                 CardWidget(name = "PopUp", prof = "Programmer")
                 CardWidget(name = "Tennis", prof = "Programmer")
+                IncrementButton()
             }
         }
     }
@@ -146,6 +149,20 @@ fun CardWidget(name: String, prof: String?) {
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun IncrementButton(
+    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
+    val currentState = viewModel.state.value;
+    TextButton(onClick = {
+        println("clicking${currentState.counter}")
+        viewModel.increment(MainViewModel.MainEvent.IncrementCounter) }) {
+
+        Text(text = "${currentState.counter}")
     }
 }
 
