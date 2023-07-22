@@ -34,8 +34,8 @@ fun MainBottomNavigation(navController: NavController) {
         BottomItem.screen3,
     )
     BottomNavigation(
-        backgroundColor = Color.Yellow,
-        contentColor = Color.Black
+        backgroundColor = Color(0xFF4472C4),
+        contentColor = Color.White
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -48,8 +48,8 @@ fun MainBottomNavigation(navController: NavController) {
                     Text(text = item.name,
                         fontSize = 9.sp)
                 },
-                selectedContentColor = Color.Black,
-                unselectedContentColor = Color.Black.copy(0.4f),
+                selectedContentColor = Color.White,
+                unselectedContentColor = Color.White.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
                 onClick = {
