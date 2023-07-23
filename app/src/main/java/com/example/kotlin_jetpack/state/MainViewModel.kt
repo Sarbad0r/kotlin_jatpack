@@ -7,25 +7,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    private val _state = mutableStateOf(MainState())
-    val state: State<MainState> = _state
+    private val _mainState = mutableStateOf(MainState())
+    val mainState: State<MainState> = _mainState
+
 
     sealed class MainEvent {
         object IncrementCounter : MainEvent();
-        object DecrementCounter : MainEvent();
+        object AnotherCounter : MainEvent();
     }
 
 
     fun incrementAndDecrement(event: MainEvent) {
         when (event) {
             MainEvent.IncrementCounter -> {
-                _state.value.counter++
-                Log.d("MainState", "Counter: ${_state.value.counter}")
+                var stateCounter = _mainState.value.counter
+                stateCounter++
+                _mainState.value = mainState.value.copy(counter = stateCounter)
             }
-            MainEvent.DecrementCounter -> {
-                if (_state.value.counter <= 0) return;
-                _state.value.counter--
-                Log.d("MainState", "Counter Minus: ${_state.value.counter}")
+            MainEvent.AnotherCounter -> {
+                var stateAnotherCounter = _mainState.value.anotherCouner
+                stateAnotherCounter++
+                _mainState.value = mainState.value.copy(anotherCouner = stateAnotherCounter)
             }
         }
     }

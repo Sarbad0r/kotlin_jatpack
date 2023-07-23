@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kotlin_jetpack.state.MainViewModel
 import com.example.kotlin_jetpack.ui_composables.CardComposable
 import com.example.kotlin_jetpack.ui_composables.LazyColumnComposable
@@ -22,8 +23,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreenWithBottomNavBar()
-//            Column(modifier = Modifier.fillMaxSize()) {
+//            MainScreenWithBottomNavBar()
+            Column(modifier = Modifier.fillMaxSize()) {
 //                TopAppBar()
 ////                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 ////                    CardComposable(name = "Avaz", prof = "Programmer")
@@ -39,18 +40,18 @@ class MainActivity : ComponentActivity() {
 ////                    IncrementButton()
 ////                }
 ////                LazyColumnComposable()
-////                IncrementButton()
+            IncrementButton()
 //                LazyRowComposable()
-//            }
+            }
         }
     }
 }
 
 @Composable
 fun IncrementButton(
-    viewModel: MainViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: MainViewModel = viewModel(),
 ) {
-    val currentState = viewModel.state.value;
+    val currentState = viewModel.mainState.value;
     TextButton(onClick = {
         println("clicking${currentState.counter}")
         viewModel.incrementAndDecrement(MainViewModel.MainEvent.IncrementCounter)
@@ -59,9 +60,10 @@ fun IncrementButton(
         Text(text = "Increment")
     }
     Text(text = "${currentState.counter}")
+    Text(text = "${currentState.anotherCouner}")
     TextButton(onClick = {
         println("clicking${currentState.counter}")
-        viewModel.incrementAndDecrement(MainViewModel.MainEvent.DecrementCounter)
+        viewModel.incrementAndDecrement(MainViewModel.MainEvent.AnotherCounter)
     }) {
 
         Text(text = "Decrement")
